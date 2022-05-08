@@ -1,12 +1,11 @@
 import java.util.Objects;
-import java.util.OptionalInt;
 
 public class Person {
 
-    protected final String name;
-    protected final String surname;
-    protected OptionalInt age;
-    public String address;
+    protected String name;
+    protected String surname;
+    protected Integer age;
+    protected String address;
 
     public String getName() {
         return name;
@@ -16,7 +15,7 @@ public class Person {
         return surname;
     }
 
-    public OptionalInt getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -24,16 +23,6 @@ public class Person {
         return address;
     }
 
-    public Person(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
-
-    public Person(String name, String surname, Integer age) {
-        this.name = name;
-        this.surname = surname;
-        this.age = OptionalInt.of(age);
-    }
 
     @Override
     public String toString() {
@@ -41,17 +30,8 @@ public class Person {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", city='" + address + '\'' +
+                ", address='" + address + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return name.equals(person.name) && surname.equals(person.surname) && age.equals(person.age) &&
-                Objects.equals(address, person.address);
     }
 
     @Override
@@ -78,11 +58,13 @@ public class Person {
     }
 
     public void happyBirthday() {
-        this.age = OptionalInt.of(age.getAsInt() + 1);
+        this.age = age + 1;
     }
 
     public PersonBuilder newChildBuilder() {
-
-        return null;
+        PersonBuilder person = new PersonBuilder();
+        person.setSurname(getSurname());
+        person.setAddress(getAddress());
+        return person;
     }
 }
