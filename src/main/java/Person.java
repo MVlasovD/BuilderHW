@@ -3,10 +3,10 @@ import java.util.OptionalInt;
 
 public class Person {
 
-    protected String name;
-    protected String surname;
+    protected final String name;
+    protected final String surname;
     protected OptionalInt age;
-    protected String address;
+    public String address;
 
     public String getName() {
         return name;
@@ -59,14 +59,30 @@ public class Person {
         return Objects.hash(name, surname, age, address);
     }
 
-    public boolean hasAge() { /*...*/ return true;}
-    public boolean hasAddress() { /*...*/ return true;}
-
-    public void setAddress(String address) { /*...*/ }
-    public void happyBirthday() {
-        var age = this.age;
-
+    public boolean hasAge() {
+        if (age == null) {
+            return false;
+        }
+        return true;
     }
 
-    public PersonBuilder newChildBuilder() { /*...*/ return null;}
+    public boolean hasAddress() {
+        if (address == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void happyBirthday() {
+        this.age = OptionalInt.of(age.getAsInt() + 1);
+    }
+
+    public PersonBuilder newChildBuilder() {
+
+        return null;
+    }
 }
