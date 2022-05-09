@@ -1,10 +1,11 @@
 import java.util.Objects;
+import java.util.OptionalInt;
 
 public class Person {
 
     protected String name;
     protected String surname;
-    protected Integer age;
+    protected OptionalInt age;
     protected String address;
 
     public String getName() {
@@ -15,7 +16,7 @@ public class Person {
         return surname;
     }
 
-    public Integer getAge() {
+    public OptionalInt getAge() {
         return age;
     }
 
@@ -58,13 +59,14 @@ public class Person {
     }
 
     public void happyBirthday() {
-        this.age = age + 1;
+        this.age = OptionalInt.of(age.getAsInt() + 1);
     }
 
     public PersonBuilder newChildBuilder() {
         PersonBuilder person = new PersonBuilder();
         person.setSurname(getSurname());
         person.setAddress(getAddress());
+        person.setAge(0);
         return person;
     }
 }

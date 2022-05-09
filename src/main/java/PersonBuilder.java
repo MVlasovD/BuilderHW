@@ -19,8 +19,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder setAge(int age) throws IllegalArgumentException {
-        person.age = age;
+    public PersonBuilder setAge(Integer age) throws IllegalArgumentException {
+        person.age = OptionalInt.of(age);
         return this;
     }
 
@@ -37,7 +37,7 @@ public class PersonBuilder {
             sb.append("Surname must not be null.");
             throw new IllegalStateException(sb.toString());
         }
-        if (person.age < 0 || person.age > 100) {
+        if ( (person.age).getAsInt() < 0 || (person.age).getAsInt() > 100) {
             sb.append("Age is not valid.");
             throw new IllegalArgumentException(sb.toString());
         }
